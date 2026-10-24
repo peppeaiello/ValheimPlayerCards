@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>ValheimPlayerCards</AssemblyName>
+    <RootNamespace>ValheimPlayerCards</RootNamespace>
+    <Version>0.2.1</Version>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <Deterministic>true</Deterministic>
+    <DebugType>embedded</DebugType>
+    <PathMap>$(MSBuildProjectDirectory)=/src/ValheimPlayerCards</PathMap>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <!--
+    Path to a Valheim install (client or dedicated server) with BepInEx and Jotunn.
+    Set the VALHEIM_DIR environment variable, or pass -p:ValheimDir=/path/to/Valheim.
+  -->
+  <PropertyGroup>
+    <ValheimDir Condition="'$(ValheimDir)' == ''">$(VALHEIM_DIR)</ValheimDir>
+    <ValheimManaged Condition="Exists('$(ValheimDir)/valheim_server_Data/Managed')">$(ValheimDir)/valheim_server_Data/Managed</ValheimManaged>
+    <ValheimManaged Condition="'$(ValheimManaged)' == ''">$(ValheimDir)/valheim_Data/Managed</ValheimManaged>
+    <BepInExCore>$(ValheimDir)/BepInEx/core</BepInExCore>
+    <JotunnDll Condition="'$(JotunnDll)' == ''">$(ValheimDir)/BepInEx/plugins/Jotunn/Jotunn.dll</JotunnDll>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="BepInEx" HintPath="$(BepInExCore)/BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(BepInExCore)/0Harmony.dll" Private="false" />
+    <Reference Include="Jotunn" HintPath="$(JotunnDll)" Private="false" />
+    <Reference Include="assembly_valheim" HintPath="$(ValheimManaged)/assembly_valheim.dll" Private="false" />
+    <Reference Include="assembly_guiutils" HintPath="$(ValheimManaged)/assembly_guiutils.dll" Private="false" />
+    <Reference Include="assembly_utils" HintPath="$(ValheimManaged)/assembly_utils.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(ValheimManaged)/UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(ValheimManaged)/UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.AnimationModule" HintPath="$(ValheimManaged)/UnityEngine.AnimationModule.dll" Private="false" />
+    <Reference Include="UnityEngine.ImageConversionModule" HintPath="$(ValheimManaged)/UnityEngine.ImageConversionModule.dll" Private="false" />
+    <Reference Include="UnityEngine.ParticleSystemModule" HintPath="$(ValheimManaged)/UnityEngine.ParticleSystemModule.dll" Private="false" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- The built-in page, served by WebServer. -->
+    <EmbeddedResource Include="web/**" LogicalName="web/%(Filename)%(Extension)" />
+  </ItemGroup>
+
+  <Target Name="CheckValheimDir" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="!Exists('$(ValheimManaged)/assembly_valheim.dll')"
+           Text="Valheim not found. Set VALHEIM_DIR or pass -p:ValheimDir=/path/to/Valheim (a game or dedicated server install with BepInEx)." />
+    <Error Condition="!Exists('$(JotunnDll)')"
+           Text="Jotunn.dll not found at $(JotunnDll). Install Jotunn in that Valheim folder or pass -p:JotunnDll=/path/to/Jotunn.dll." />
+  </Target>
+
+</Project>

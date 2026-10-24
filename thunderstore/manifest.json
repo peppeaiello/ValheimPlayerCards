@@ -1,0 +1,10 @@
+{
+  "name": "ValheimPlayerCards",
+  "version_number": "0.2.1",
+  "website_url": "https://github.com/peppeaiello/ValheimPlayerCards",
+  "description": "A web page of player cards for your server: each player's real character as it looks in game, with equipment, skills, stats and time played. Plus a JSON API for status pages.",
+  "dependencies": [
+    "denikson-BepInExPack_Valheim-5.4.2351",
+    "ValheimModding-Jotunn-2.30.2"
+  ]
+}
