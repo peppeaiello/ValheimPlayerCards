@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- Documentation only: added a Ko-fi support button to the README. No code changes.
+
 ## 0.2.1
 
 - First public version.

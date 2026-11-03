@@ -16,7 +16,7 @@ namespace ValheimPlayerCards
     {
         public const string Guid = "Manke.ValheimPlayerCards";
         public const string Name = "ValheimPlayerCards";
-        public const string Version = "0.2.1";
+        public const string Version = "0.2.2";
 
         internal const string DefaultStats =
             "Deaths,EnemyKills,BossKills,PlayerKills,Builds,Crafts,TreeChops,MineHits,FishCaught,CreatureTamed,FoodEaten,PortalsUsed,DistanceTraveled,DistanceSail,ArrowsShot,Jumps";

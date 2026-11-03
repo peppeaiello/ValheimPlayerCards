@@ -1,5 +1,7 @@
 # Valheim Player Cards
 
+[![Support me on Ko-fi](https://github.com/peppeaiello/ServerConfigSync/raw/main/docs/kofi-button.png)](https://ko-fi.com/peppeaiello)
+
 A web page with a card for every player on your Valheim server: the player's **real character, as
 it looks in game**, with the equipment they wear, their skills, character statistics and the time
 they spent on the server. A JSON API is included, so the cards can also be shown on your own
